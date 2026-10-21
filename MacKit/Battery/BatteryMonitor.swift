@@ -111,9 +111,11 @@ final class BatteryMonitor: ObservableObject {
         async let hardware = hardwareReader.read()
         let (batterySnapshot, hardwareSnapshot) = await (battery, hardware)
 
-        self.snapshot = batterySnapshot
+        var snapshot = batterySnapshot
+        snapshot.chargeLimit = ChargeLimitReader.chargeLimit()
+        self.snapshot = snapshot
         self.hardware = hardwareSnapshot
-        self.lastUpdated = batterySnapshot.capturedAt
+        self.lastUpdated = snapshot.capturedAt
 
         appendHistory(battery: batterySnapshot, hardware: hardwareSnapshot)
         await maintainFanConnection()

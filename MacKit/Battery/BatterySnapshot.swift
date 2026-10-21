@@ -33,6 +33,8 @@ nonisolated struct BatterySnapshot: Sendable, Equatable, Codable {
     var externalConnected = false
     var critical = false
     var lowPowerMode = false
+    /// 系统设置的充电上限（用户手动设置时存在）。
+    var chargeLimit: Int?
     var registryAvailable = false
     var warning: String?
 
